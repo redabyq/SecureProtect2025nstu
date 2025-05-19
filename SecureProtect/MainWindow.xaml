@@ -1,0 +1,220 @@
+﻿<Window x:Class="SecureProtect.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SecureProtect"
+        mc:Ignorable="d"
+        Title="Secure Login" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Storyboard x:Key="TitleAnimation">
+            <DoubleAnimation Storyboard.TargetName="titleText" 
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.7"/>
+            <ThicknessAnimation Storyboard.TargetName="titleText" 
+                               Storyboard.TargetProperty="Margin"
+                               From="0,50,0,0" To="0,20,0,0" 
+                               Duration="0:0:1"/>
+        </Storyboard>
+
+        <!-- Стиль для TextBox с закругленными углами -->
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FFF0F0F0"/>
+            <Setter Property="BorderBrush" Value="#0e1d40"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="5" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#0e1d40"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#FF1A4D8C"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стиль для PasswordBox с закругленными углами -->
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="#FFF0F0F0"/>
+            <Setter Property="BorderBrush" Value="#0e1d40"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border CornerRadius="5" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#FF3D6DAA"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#FF1A4D8C"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <!-- Остальная часть XAML остается без изменений -->
+    <Grid>
+        
+        <!-- Фоновое размытие -->
+        <Grid>
+            <Grid.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF1A4D8C" Offset="0"/>
+                    <GradientStop Color="#FF0E2642" Offset="1"/>
+                </RadialGradientBrush>
+            </Grid.Background>
+        </Grid>
+
+        <!-- Основной контейнер с закругленными углами -->
+        <Border CornerRadius="20" 
+                Background="#FFF0F0F0" 
+                Width="350" Height="400"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="20" 
+                                  ShadowDepth="5" 
+                                  Color="#40000000"/>
+            </Border.Effect>
+
+            <Grid Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Анимированный заголовок -->
+                <TextBlock x:Name="titleText" 
+                           Text="SecureProtect" 
+                           FontSize="28" 
+                           FontWeight="Bold" 
+                           Foreground="#FF1A4D8C"
+                           HorizontalAlignment="Center"
+                           Margin="0,20,0,30"
+                           Opacity="0">
+           
+                </TextBlock>
+
+                <!-- Поля ввода -->
+                <TextBlock Grid.Row="1" 
+                           Text="Логин" 
+                           Foreground="#555" 
+                           Margin="0,0,0,5"/>
+
+                <TextBox x:Name="usernameBox" 
+                         Grid.Row="2"/>
+
+                <TextBlock Grid.Row="3" 
+                           Text="Пароль" 
+                           Foreground="#555" 
+                           Margin="0,0,0,5"/>
+
+                <PasswordBox x:Name="passwordBox" 
+                             Grid.Row="4"/>
+
+                <!-- Кнопка входа -->
+                <Button x:Name="loginButton" 
+                        Grid.Row="5" 
+                        Content="Войти" 
+                        Background="#FF1A4D8C" 
+                        Foreground="White"
+                        FontSize="16" 
+                        FontWeight="Bold"
+                        Padding="15,8"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,10"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="LoginButton_Click" BorderBrush="Black">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="5" 
+                                         ShadowDepth="2" 
+                                         Color="#40000000"/>
+                    </Button.Effect>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#0e1d40" 
+                                                   Duration="0:0:0.2" 
+                                                   Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#FF1A4D8C" 
+                                                   Duration="0:0:0.2" 
+                                                   Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Кнопка закрытия -->
+        <Button Content="✕" 
+                FontSize="14" 
+                Width="30" Height="30"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                Margin="0,10,10,0"
+                Background="Transparent" 
+                BorderThickness="0"
+                Foreground="White"
+                Click="CloseButton_Click"
+                Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="5" 
+                                 ShadowDepth="1" 
+                                 Color="#40000000"/>
+            </Button.Effect>
+        </Button>
+    </Grid>
+</Window>
